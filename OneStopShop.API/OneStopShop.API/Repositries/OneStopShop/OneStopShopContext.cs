@@ -26,13 +26,9 @@ namespace OneStopShop.API.Repositries.OneStopShop
 
         public DbSet<ShoppingList> shoppinglists { get; set; }
 
-        public DbSet<Item> items { get; set; }
-
         public DbSet<RefreshToken> refreshtokens { get; set; }
 
         public DbSet<ShoppingListItem> shoppinglistitems { get; set; }
-
-        public DbSet<ItemQuantityType> itemquantitytypes { get; set; }
 
         #endregion
     }

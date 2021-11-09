@@ -28,8 +28,6 @@ namespace OneStopShop.API.Services
 
         bool DeleteUser(int userid);
 
-        List<Item> GetItems();
-
         List<ShoppingList> GetShoppingLists(int userid);
 
         List<ShoppingListItemDTO> GetShoppingListItems(int shoppinglistid);

@@ -52,28 +52,37 @@ export default {
         open: true
     }),
     methods: {
-            newShoppingListItem() {
-            this.$store.dispatch("POST_ITEM", {
-                shoppinglistitemdescription: this.shoppinglistitemdescription,
-                quantitydescription: this.quantitydescription,
-                itemchecked: this.itemchecked,
-                shoppinglistid: this.$route.params.id
-            })
-            .then(response => {
-            this.$store.commit("SET_NOTIFICATION", {
-                display: true,
-                text: "New item has been created!",
-                alertClass: "success"
-            });
+        newShoppingListItem() {
+            if (this.shoppinglistitemdescription != "" && this.quantitydescription != "") {
+                this.$store.dispatch("POST_ITEM", {
+                    shoppinglistitemdescription: this.shoppinglistitemdescription,
+                    quantitydescription: this.quantitydescription,
+                    itemchecked: this.itemchecked,
+                    shoppinglistid: this.$route.params.id
+                })
+                .then(response => {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "New item has been created!",
+                    alertClass: "success"
+                });
 
-            this.shoppinglistitemdescription = "";
-            this.quantitydescription = "";
-            this.itemchecked = false;
-            this.open = false;
+                this.shoppinglistitemdescription = "";
+                this.quantitydescription = "";
+                this.itemchecked = false;
+                this.open = false;
 
-            console.log(this.$route.params.id);
-            this.$store.dispatch("GET_ITEMS", this.$route.params.id);
-            });
+                console.log(this.$route.params.id);
+                this.$store.dispatch("GET_ITEMS", this.$route.params.id);
+                });
+            }
+            else {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "There are missing fields!",
+                    alertClass: "warning"
+                });
+            }          
         }
     },
     watch: {

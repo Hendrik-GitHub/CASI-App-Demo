@@ -9,7 +9,7 @@ import store from "./stores/store";
 import App from "./App.vue";
 import Login from "./components/auth/Login"; 
 import Signup from "./components/auth/Signup"; 
-import Todo from "./components/Todo"; 
+import OneStopShop from "./components/OneStopShop"; 
 import Items from "./components/Items"; 
 import NewShoppingList from "./components/NewShoppingList";
 import NewItem from "./components/NewItem";
@@ -26,8 +26,8 @@ axios.defaults.withCredentials = false;
 const routes = [
   {
     path: "/",
-    component: Todo,
-    name: "Todo",
+    component: OneStopShop,
+    name: "OneStopShop",
     children: [
       {
         path: "shoppinglist/:id",

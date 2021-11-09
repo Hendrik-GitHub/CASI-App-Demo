@@ -21,19 +21,19 @@ namespace OneStopShop.API.Controllers
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/UserController")]
     [ApiController]
-    public class UserController : Controller
+    public class UserController : ControllerBase
     {
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _env;
         private IOneStopShopRepository _oneStopShopRepository;
         private IHttpContextAccessor _accessor;
-        private ILogger _logger;
+        private ILogger<UserController> _logger;
 
         public UserController(IConfiguration configuration,
             IWebHostEnvironment env,
             IOneStopShopRepository oneStopShopRepository,
             IHttpContextAccessor accessor,
-            ILogger logger)
+            ILogger<UserController> logger)
         {
             _configuration = configuration;
             _env = env;

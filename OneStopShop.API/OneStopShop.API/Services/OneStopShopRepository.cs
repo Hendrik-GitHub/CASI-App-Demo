@@ -49,12 +49,22 @@ namespace OneStopShop.API.Services
             userData.emailaddress = user.EmailAddress;
             userData.password = user.Password;
 
-            _context.users.Add(userData);
-            _context.SaveChanges();
+            User userCheck = _context.users.Where(u => u.username == user.UserName).FirstOrDefault();
 
-            response.Message = "Success";
-            response.Success = true;
+            if (userCheck == null)
+            {
+                _context.users.Add(userData);
+                _context.SaveChanges();
 
+                response.Message = "Success";
+                response.Success = true;
+            }
+            else
+            {
+                response.Message = "User exists!";
+                response.Success = false;
+            }
+          
             return response;
         }
 
@@ -85,15 +95,6 @@ namespace OneStopShop.API.Services
         #endregion
 
         #region Items
-
-        public List<Item> GetItems()
-        {
-            List<Item> itemsList = new List<Item>();
-
-            itemsList = _context.items.ToList();
-
-            return itemsList;
-        }
 
         public async Task<int> CreateShoppingListItem(ItemDTO shoppingListItem, int userid)
         {

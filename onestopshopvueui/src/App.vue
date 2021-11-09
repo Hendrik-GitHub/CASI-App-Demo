@@ -8,12 +8,12 @@
 
 //import Login from './components/auth/Login'
 //import Signup from './components/auth/Signup'
-//import Todo from './components/Todo'
+//import OneStopShop from './components/OneStopShop'
 
 export default {
   name: 'App',
   components: {
-    //Todo
+    //OneStopShop
     //Login
   }
 }

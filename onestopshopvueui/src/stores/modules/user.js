@@ -1,9 +1,19 @@
 import axios from "axios";
 
 export default {
-    state: {},
-    getters: {},
-    mutations: {},
+    state: {
+      userName: ""
+    },
+    getters: {
+      USER: state => {
+        return state.userName;
+      },
+    },
+    mutations: {
+      SET_USER: (state, payload) => {
+        state.userName = payload.username;
+      }
+    },
     actions: {
         LOGIN: ({ commit }, payload) => {
           return new Promise((resolve, reject) => {
@@ -11,6 +21,7 @@ export default {
               .then(({ data, status }) => {
                 if (status === 200) {                
                   localStorage.setItem('Token', JSON.stringify(data.Token));
+                  commit("SET_USER", payload);
                   resolve(true);
                 }
               })
@@ -21,15 +32,19 @@ export default {
         },
         REGISTER: ({ commit }, { username, emailaddress, password }) => {
           return new Promise((resolve, reject) => {
-            axios
-              .post(`UserController/CreateUser/`, {
+            axios.post(`UserController/CreateUser/`, {
                 username,
                 emailaddress,
                 password
               })
               .then(({ data, status }) => {
-                if (status === 200) {
+                console.log(data);
+                console.log(status);
+                if (status === 200 && data.Success == true) {
                   resolve(true);
+                }
+                else if (data.Success == false) {
+                  reject(data.Message);
                 }
               })
               .catch(error => {       

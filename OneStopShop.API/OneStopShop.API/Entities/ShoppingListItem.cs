@@ -24,5 +24,8 @@ namespace OneStopShop.API.Entities
         public DateTime insertiondate { get; set; }
 
         public bool itemchecked { get; set; }
+
+        [ForeignKey("shoppinglistid")]
+        public ShoppingList ShoppingList { get; set; }
     }
 }

@@ -51,24 +51,33 @@ export default {
     }),    
     methods: {
         saveShoppingList() {
-            this.$store.dispatch("POST_UPDATE_LIST", {
-                id: this.$route.params.id,
-                shoppinglistname: this.shoppinglistname,
-                shoppinglistdescription: this.shoppinglistdescription
-            })
-            .then(response => {
-            this.$store.commit("SET_NOTIFICATION", {
-                display: true,
-                text: "Shopping List has been updated!",
-                alertClass: "success"
-            });
+            if (this.shoppinglistname != "" && this.shoppinglistdescription != "") {
+                this.$store.dispatch("POST_UPDATE_LIST", {
+                    id: this.$route.params.id,
+                    shoppinglistname: this.shoppinglistname,
+                    shoppinglistdescription: this.shoppinglistdescription
+                })
+                .then(response => {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "Shopping List has been updated!",
+                    alertClass: "success"
+                });
 
-            this.shoppinglistname = "";
-            this.shoppinglistdescription = "";
-            this.open = false;
+                this.shoppinglistname = "";
+                this.shoppinglistdescription = "";
+                this.open = false;
 
-            this.$store.dispatch("GET_LISTS", false);
-            });
+                this.$store.dispatch("GET_LISTS", false);
+                });
+            }
+            else {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "There are missing fields!",
+                    alertClass: "warning"
+                });
+            }         
         } 
     },
     computed: {
@@ -80,7 +89,7 @@ export default {
          open: function(value) {
             if (value === false) {
                     this.$router.push({
-                    name: "Todo",
+                    name: "OneStopShop",
                     params: {
                         id: this.$route.params.id
                     }

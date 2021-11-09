@@ -1,11 +1,17 @@
 <template>
     <v-navigation-drawer permanent style="width: 100%;">
+        <v-toolbar dark color="blue">
+            <v-spacer />
+            <v-toolbar-title>Welcome {{ USER }}!</v-toolbar-title>
+            <v-spacer />
+        </v-toolbar> 
         <v-toolbar color="blue" dark>
             <v-toolbar-title>My Shopping Lists</v-toolbar-title>
-            <v-spacer></v-spacer>
+            <v-spacer />
             <v-btn icon>
                 <v-btn rounded color="primary" dark @click.prevent="logout()">Logout<v-icon>logout</v-icon></v-btn>
             </v-btn>
+            <v-spacer />
         </v-toolbar>
         <v-list>
             <v-list-item color="blue" @click.prevent="openCreateNewListModal()">
@@ -77,6 +83,9 @@ export default {
     },
     data: () => ({}),
     computed: {
+        USER () {
+            return this.$store.getters.USER;
+        }, 
         ...mapGetters(['DISPLAY_SEARCH_LIST', 'LISTS']), //The "..." is called the spread operator 
         openNewListFormValue: {
             get () {
@@ -93,7 +102,7 @@ export default {
             set (value) {
                 this.$store.commit("SET_EDIT_LIST_FORM", value)
             }
-        }
+        }       
     },
     methods: {
         openNewListForm () {
@@ -130,7 +139,7 @@ export default {
                     this.open = false;
 
                     this.$router.push({
-                        name: "Todo",
+                        name: "OneStopShop",
                         params: {
                             id: this.$route.params.id
                         }

@@ -1,11 +1,18 @@
 <template>
     <v-container fill-height6 style="width: 50%;">
-        <v-layout align-center justify-center>
+        <v-layout align-center justify-center>  
             <v-flex xs12 sm8 md8> 
                 <v-form>
                     <v-card class="elevation-8">
                         <v-toolbar dark color="blue">
+                            <v-spacer />
+                            <v-toolbar-title>One Stop Shop</v-toolbar-title>
+                            <v-spacer />
+                        </v-toolbar> 
+                        <v-toolbar dark color="blue">
+                            <v-spacer />
                             <v-toolbar-title>Login form</v-toolbar-title>
+                            <v-spacer />
                         </v-toolbar>  
                         <v-alert color="error" :value="error" icon="close">
                             The username or password is incorrect. Please try again.

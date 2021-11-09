@@ -20,5 +20,8 @@ namespace OneStopShop.API.Entities
         public DateTime insertiondate { get; set; }
 
         public int userid { get; set; }
+
+        [ForeignKey("userid")]
+        public User User { get; set; }
     }
 }

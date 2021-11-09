@@ -53,27 +53,34 @@ export default {
     }),    
     methods: {
         updateShoppingListItem() {
-            this.$store.dispatch("POST_UPDATE_ITEM", {
-                id: this.$route.params.ItemId,
-                shoppinglistitemdescription: this.shoppinglistitemdescription,
-                quantitydescription: this.quantitydescription,
-                itemchecked: this.itemchecked,
-                shoppinglistid: this.$route.params.id
-            })
-            .then(response => {
-            this.$store.commit("SET_NOTIFICATION", {
-                display: true,
-                text: "Item has been updated!",
-                alertClass: "success"
-            });
+            if (this.shoppinglistitemdescription != "" && this.quantitydescription != "") {
+                    this.$store.dispatch("POST_UPDATE_ITEM", {
+                    id: this.$route.params.ItemId,
+                    shoppinglistitemdescription: this.shoppinglistitemdescription,
+                    quantitydescription: this.quantitydescription,
+                    itemchecked: this.itemchecked,
+                    shoppinglistid: this.$route.params.id
+                })
+                .then(response => {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "Item has been updated!",
+                    alertClass: "success"
+                });
 
-            this.shoppinglistitemdescription = "";
-            this.quantitydescription = "";
-            this.itemchecked = false;
-            this.open = false;
-
-            //this.$store.dispatch("GET_LISTS", false);
-            });
+                this.shoppinglistitemdescription = "";
+                this.quantitydescription = "";
+                this.itemchecked = false;
+                this.open = false;
+                });
+            }
+            else {
+                this.$store.commit("SET_NOTIFICATION", {
+                    display: true,
+                    text: "There are missing fields!",
+                    alertClass: "warning"
+                });
+            }           
         } 
     },
     computed: {

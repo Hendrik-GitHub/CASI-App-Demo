@@ -72,3 +72,4 @@ C:\Users\Hennie\Desktop\CASI_Project\OneStopShop.API\OneStopShop.API\obj\Debug\n
 C:\Users\Hennie\Desktop\CASI_Project\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.dll
 C:\Users\Hennie\Desktop\CASI_Project\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.pdb
 C:\Users\Hennie\Desktop\CASI_Project\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.genruntimeconfig.cache
+C:\Users\Hennie\Desktop\CASI_Project\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.csproj.AssemblyReference.cache
