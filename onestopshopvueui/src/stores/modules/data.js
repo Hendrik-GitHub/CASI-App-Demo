@@ -88,8 +88,8 @@ export default {
       return new Promise((resolve, reject) => {
         axios.post(`ShoppingListController/CreateShoppingList/`, payload, { headers })
           .then(({ data, status }) => {
-            commit("ADD_LIST", data);
-            if (status === 200 || status === 201) {
+            commit("ADD_LIST", payload);
+            if (status === 200 || status === 201 && (data.Success === true)) {
               resolve({ data, status });
             }
           })
@@ -106,8 +106,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios.put(`ShoppingListController/UpdateShoppingList/`, payload, { headers })
           .then(({ data, status }) => {
-            //commit("UPDATE_LIST", data);
-            if (status === 200 || status === 201) {
+            if (status === 200 || status === 201 && (data.Success === true)) {
               resolve({ data, status });
             }
           })
@@ -122,11 +121,10 @@ export default {
       };
 
       return new Promise((resolve, reject) => {
-        axios
-          .post(`ShoppingListController/CreateShoppingListItem/`, payload, { headers })
+        axios.post(`ShoppingListController/CreateShoppingListItem/`, payload, { headers })
           .then(({ data, status }) => {
-            commit("ADD_ITEM", data);
-            if (status === 200 || status === 201) {
+            commit("ADD_ITEM", payload);
+            if (status === 200 || status === 201 && (data.Success === true)) {
               resolve({ data, status });
             }
           })
@@ -143,8 +141,7 @@ export default {
       return new Promise((resolve, reject) => {
         axios.put(`ShoppingListController/UpdateShoppingListItem/`, payload, { headers })
           .then(({ data, status }) => {
-            //commit("UPDATE_ITEM", data);
-            if (status === 200 || status === 201) {
+            if (status === 200 || status === 201 && (data.Success === true)) {
               resolve({ data, status });
             }
           })
@@ -177,12 +174,9 @@ export default {
       };
 
       return new Promise((resolve, reject) => {
-        axios
-          .post(`ShoppingListController/ToggleShoppingListItemChecked/`, payload, { headers })
+        axios.post(`ShoppingListController/ToggleShoppingListItemChecked/`, payload, { headers })
           .then(({ data, status }) => {
-            commit("SET_ITEM_STATUS", { data });
-
-            if (status === 200 || status === 201) {
+            if (status === 200 || status === 201 && (data.Success === true)) {
               resolve({ data, status });
             }
           })

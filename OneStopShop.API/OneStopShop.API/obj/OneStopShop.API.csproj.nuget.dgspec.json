@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hennie\\Desktop\\CASI_Project\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj": {}
+    "C:\\GitHub\\CASI App Demo\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hennie\\Desktop\\CASI_Project\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj": {
+    "C:\\GitHub\\CASI App Demo\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hennie\\Desktop\\CASI_Project\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj",
+        "projectUniqueName": "C:\\GitHub\\CASI App Demo\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj",
         "projectName": "OneStopShop.API",
-        "projectPath": "C:\\Users\\Hennie\\Desktop\\CASI_Project\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj",
+        "projectPath": "C:\\GitHub\\CASI App Demo\\OneStopShop.API\\OneStopShop.API\\OneStopShop.API.csproj",
         "packagesPath": "C:\\Users\\Hennie\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hennie\\Desktop\\CASI_Project\\OneStopShop.API\\OneStopShop.API\\obj\\",
+        "outputPath": "C:\\GitHub\\CASI App Demo\\OneStopShop.API\\OneStopShop.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

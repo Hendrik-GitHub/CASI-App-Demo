@@ -44,6 +44,8 @@ namespace OneStopShop.API.Controllers
             _logger = logger;
         }
 
+        #region Shopping Lists Section
+
         [HttpGet("GetShoppingLists")]
         public IActionResult GetShoppingLists()
         {
@@ -66,7 +68,7 @@ namespace OneStopShop.API.Controllers
         [HttpPost("CreateShoppingList")]
         public async Task<IActionResult> CreateShoppingList([FromBody] ShoppingListDTO shoppingList)
         {
-            int response = 0;
+            ResponseDTO response = new ResponseDTO();
 
             int userid = Convert.ToInt32(this.User.FindFirstValue("userid"));
 
@@ -85,7 +87,7 @@ namespace OneStopShop.API.Controllers
         [HttpPut("UpdateShoppingList")]
         public async Task<IActionResult> UpdateShoppingList([FromBody] ShoppingListDTO shoppingList)
         {
-            int response = 0;
+            ResponseDTO response = new ResponseDTO();
 
             try
             {
@@ -102,7 +104,7 @@ namespace OneStopShop.API.Controllers
         [HttpDelete("DeleteShoppingList/{listId}")]
         public IActionResult DeleteShoppingList(int listId)
         {
-            bool response = false;
+            ResponseDTO response = new ResponseDTO();
 
             try
             {
@@ -115,6 +117,10 @@ namespace OneStopShop.API.Controllers
 
             return Ok(response);
         }
+
+        #endregion
+
+        #region Shopping List Items Section
 
         [HttpGet("GetShoppingListItems/{id}")]
         public IActionResult GetShoppingListItems(int id)
@@ -136,7 +142,7 @@ namespace OneStopShop.API.Controllers
         [HttpPost("CreateShoppingListItem")]
         public async Task<IActionResult> CreateShoppingListItem([FromBody] ItemDTO newShoppingListItem)
         {
-            int response = 0;
+            ResponseDTO response = new ResponseDTO();
 
             int userid = Convert.ToInt32(this.User.FindFirstValue("userid"));
 
@@ -149,13 +155,30 @@ namespace OneStopShop.API.Controllers
                 _logger.LogError(ex, "Error occured in the create shopping list item method in the shoppinglistcontroller.");
             }
 
-            return Ok(newShoppingListItem);
+            return Ok(response);
+        }
+
+        [HttpPut("UpdateShoppingListItem")]
+        public async Task<IActionResult> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItemDTO)
+        {
+            ResponseDTO response = new ResponseDTO();
+
+            try
+            {
+                response = await _oneStopShopRepository.UpdateShoppingListItem(shoppingListItemDTO);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error occured in the update shopping list item method in the shoppinglistcontroller.");
+            }
+
+            return Ok(response);
         }
 
         [HttpPost("ToggleShoppingListItemChecked")]
         public async Task<IActionResult> ToggleShoppingListItemChecked([FromBody] ItemCheckDTO itemCheck)
         {
-            int response = 0;
+            ResponseDTO response = new ResponseDTO();
 
             try
             {
@@ -166,13 +189,13 @@ namespace OneStopShop.API.Controllers
                 _logger.LogError(ex, "Error occured in the toggle shopping list item method in the shoppinglistcontroller.");
             }
 
-            return Ok(itemCheck);
+            return Ok(response);
         }
 
         [HttpDelete("DeleteShoppingListItem/{id}")]
         public IActionResult DeleteShoppingListItem(int id)
         {
-            bool response = false;
+            ResponseDTO response = new ResponseDTO();
 
             try
             {
@@ -186,21 +209,7 @@ namespace OneStopShop.API.Controllers
             return Ok(response);
         }
 
-        [HttpPut("UpdateShoppingListItem")]
-        public async Task<IActionResult> UpdateShoppingListItem([FromBody] ShoppingListItemDTO shoppingListItemDTO)
-        {
-            ShoppingListItemDTO response = null;
+        #endregion
 
-            try
-            {
-                response = await _oneStopShopRepository.UpdateShoppingListItem(shoppingListItemDTO);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Error occured in the update shopping list item method in the shoppinglistcontroller.");
-            }
-
-            return Ok(response);
-        }
     }
 }

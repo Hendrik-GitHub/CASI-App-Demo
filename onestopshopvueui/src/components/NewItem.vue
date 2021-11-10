@@ -72,7 +72,6 @@ export default {
                 this.itemchecked = false;
                 this.open = false;
 
-                console.log(this.$route.params.id);
                 this.$store.dispatch("GET_ITEMS", this.$route.params.id);
                 });
             }

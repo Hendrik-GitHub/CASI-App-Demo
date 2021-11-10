@@ -19,7 +19,7 @@ namespace OneStopShop.API.Services
             _context = context;
         }
 
-        #region Users
+        #region Users Section
 
         public async Task<User> Login(CredentialDTO cred)
         {
@@ -94,52 +94,7 @@ namespace OneStopShop.API.Services
 
         #endregion
 
-        #region Items
-
-        public async Task<int> CreateShoppingListItem(ItemDTO shoppingListItem, int userid)
-        {
-            ShoppingListItem newItem = new ShoppingListItem();
-
-            newItem.shoppinglistitemdescription = shoppingListItem.shoppinglistitemdescription;
-            newItem.shoppinglistid = shoppingListItem.shoppinglistid;
-            newItem.quantitydescription = shoppingListItem.quantitydescription;
-            newItem.insertiondate = DateTime.Now;
-            newItem.itemchecked = shoppingListItem.itemchecked;
-
-            _context.shoppinglistitems.Add(newItem);
-            _context.SaveChanges();
-
-            return newItem.id;
-        }
-
-        public async Task<int> ToggleShoppingListItemChecked(ItemCheckDTO itemCheck)
-        {
-            ShoppingListItem currentItem = _context.shoppinglistitems.Where(i => i.id == itemCheck.id).FirstOrDefault();
-
-            currentItem.itemchecked = itemCheck.ItemChecked;
-
-            _context.shoppinglistitems.Update(currentItem);
-            _context.SaveChanges();
-
-            return currentItem.id;
-        }
-
-        public async Task<ShoppingListItemDTO> UpdateShoppingListItem(ShoppingListItemDTO shoppingListItem)
-        {
-            ShoppingListItem shoppingListData = _context.shoppinglistitems.Where(s => s.id == shoppingListItem.id).FirstOrDefault();
-
-            shoppingListData.shoppinglistitemdescription = shoppingListItem.ShoppingListItemDescription;
-            shoppingListData.quantitydescription = shoppingListItem.QuantityDescription;
-
-            _context.shoppinglistitems.Update(shoppingListData);
-            _context.SaveChanges();
-
-            return shoppingListItem;
-        }
-
-        #endregion
-
-        #region Shopping List
+        #region Shopping Lists Section
 
         public List<ShoppingList> GetShoppingLists(int userid)
         {
@@ -153,6 +108,67 @@ namespace OneStopShop.API.Services
             return shoppingLists;
         }
 
+        public async Task<ResponseDTO> CreateShoppingList(ShoppingListDTO shoppinglist, int userid)
+        {
+            ResponseDTO response = new ResponseDTO();
+            ShoppingList shoppingListData = new ShoppingList();
+
+            shoppingListData.name = shoppinglist.shoppinglistname;
+            shoppingListData.description = shoppinglist.shoppinglistdescription;
+            shoppingListData.insertiondate = DateTime.Now;
+            shoppingListData.userid = userid;
+
+            _context.shoppinglists.Add(shoppingListData);
+            _context.SaveChanges();
+
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
+        }
+
+        public async Task<ResponseDTO> UpdateShoppingList(ShoppingListDTO shoppinglist)
+        {
+            ResponseDTO response = new ResponseDTO();
+            ShoppingList shoppingListData = _context.shoppinglists.Where(s => s.id == shoppinglist.id).FirstOrDefault();
+
+            shoppingListData.name = shoppinglist.shoppinglistname;
+            shoppingListData.description = shoppinglist.shoppinglistdescription;
+
+            _context.shoppinglists.Update(shoppingListData);
+            _context.SaveChanges();
+
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
+        }
+
+        public ResponseDTO DeleteShoppingList(int shoppinglistid)
+        {
+            ResponseDTO response = new ResponseDTO();
+            List<ShoppingListItem> shoppingListItems = _context.shoppinglistitems.Where(i => i.shoppinglistid == shoppinglistid).ToList();
+
+            foreach (ShoppingListItem item in shoppingListItems)
+            {
+                _context.shoppinglistitems.Remove(item);
+            }
+
+            ShoppingList shoppingListData = _context.shoppinglists.Where(s => s.id == shoppinglistid).FirstOrDefault();
+
+            _context.shoppinglists.Remove(shoppingListData);
+            _context.SaveChanges();
+
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
+        }
+
+        #endregion
+
+        #region Shopping List Items Section
+
         public List<ShoppingListItemDTO> GetShoppingListItems(int shoppinglistid)
         {
             List<ShoppingListItem> shoppingListItems = new List<ShoppingListItem>();
@@ -160,7 +176,7 @@ namespace OneStopShop.API.Services
 
             shoppingListItems = _context.shoppinglistitems.Where(s => s.shoppinglistid == shoppinglistid).ToList();
 
-            foreach(ShoppingListItem item in shoppingListItems)
+            foreach (ShoppingListItem item in shoppingListItems)
             {
                 ShoppingListItemDTO itemDTO = new ShoppingListItemDTO();
 
@@ -179,63 +195,75 @@ namespace OneStopShop.API.Services
             return shoppingListItemsDataSorted;
         }
 
-        public async Task<int> CreateShoppingList(ShoppingListDTO shoppinglist, int userid)
+        public async Task<ResponseDTO> CreateShoppingListItem(ItemDTO shoppingListItem, int userid)
         {
-            ShoppingList shoppingListData = new ShoppingList();
+            ResponseDTO response = new ResponseDTO();
+            ShoppingListItem newItem = new ShoppingListItem();
 
-            shoppingListData.name = shoppinglist.shoppinglistname;
-            shoppingListData.description = shoppinglist.shoppinglistdescription;
-            shoppingListData.insertiondate = DateTime.Now;
-            shoppingListData.userid = userid;
+            newItem.shoppinglistitemdescription = shoppingListItem.shoppinglistitemdescription;
+            newItem.shoppinglistid = shoppingListItem.shoppinglistid;
+            newItem.quantitydescription = shoppingListItem.quantitydescription;
+            newItem.insertiondate = DateTime.Now;
+            newItem.itemchecked = shoppingListItem.itemchecked;
 
-            _context.shoppinglists.Add(shoppingListData);
+            _context.shoppinglistitems.Add(newItem);
             _context.SaveChanges();
 
-            return shoppingListData.id;
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
         }
 
-        public async Task<int> UpdateShoppingList(ShoppingListDTO shoppinglist)
+        public async Task<ResponseDTO> UpdateShoppingListItem(ShoppingListItemDTO shoppingListItem)
         {
-            ShoppingList shoppingListData = _context.shoppinglists.Where(s => s.id == shoppinglist.id).FirstOrDefault();
+            ResponseDTO response = new ResponseDTO();
+            ShoppingListItem shoppingListData = _context.shoppinglistitems.Where(s => s.id == shoppingListItem.id).FirstOrDefault();
 
-            shoppingListData.name = shoppinglist.shoppinglistname;
-            shoppingListData.description = shoppinglist.shoppinglistdescription;
+            shoppingListData.shoppinglistitemdescription = shoppingListItem.ShoppingListItemDescription;
+            shoppingListData.quantitydescription = shoppingListItem.QuantityDescription;
 
-            _context.shoppinglists.Update(shoppingListData);
+            _context.shoppinglistitems.Update(shoppingListData);
             _context.SaveChanges();
 
-            return shoppingListData.id;
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
         }
 
-        public bool DeleteShoppingList(int shoppinglistid)
+        public async Task<ResponseDTO> ToggleShoppingListItemChecked(ItemCheckDTO itemCheck)
         {
-            List<ShoppingListItem> shoppingListItems = _context.shoppinglistitems.Where(i => i.shoppinglistid == shoppinglistid).ToList();
+            ResponseDTO response = new ResponseDTO();
+            ShoppingListItem currentItem = _context.shoppinglistitems.Where(i => i.id == itemCheck.id).FirstOrDefault();
 
-            foreach(ShoppingListItem item in shoppingListItems)
-            {
-                _context.shoppinglistitems.Remove(item);
-            }
+            currentItem.itemchecked = itemCheck.ItemChecked;
 
-            ShoppingList shoppingListData = _context.shoppinglists.Where(s => s.id == shoppinglistid).FirstOrDefault();
-
-            _context.shoppinglists.Remove(shoppingListData);
+            _context.shoppinglistitems.Update(currentItem);
             _context.SaveChanges();
 
-            return true;
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
         }
 
-        public bool DeleteShoppingListItem(int shoppinglistitemid)
+        public ResponseDTO DeleteShoppingListItem(int shoppinglistitemid)
         {
+            ResponseDTO response = new ResponseDTO();
             ShoppingListItem itemData = _context.shoppinglistitems.Where(s => s.id == shoppinglistitemid).FirstOrDefault();
 
             _context.shoppinglistitems.Remove(itemData);
             _context.SaveChanges();
 
-            return true;
+            response.Message = "Success";
+            response.Success = true;
+
+            return response;
         }
 
         #endregion
-
+      
         #region Security
 
         public void AddRefreshToken(RefreshToken refreshToken)

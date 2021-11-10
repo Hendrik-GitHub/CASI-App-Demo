@@ -10,15 +10,11 @@ namespace OneStopShop.API.Services
 {
     public interface IOneStopShopRepository
     {
+        #region Users Section
+
         List<User> GetUsers();
 
         Task<User> Login(CredentialDTO cred);
-
-        void AddRefreshToken(RefreshToken refreshToken);
-
-        RefreshToken ListRefreshTokenDetails(string token);
-
-        void RevokeRefreshToken(RefreshToken token);
 
         User ListUserDetails(int userID);
 
@@ -28,22 +24,42 @@ namespace OneStopShop.API.Services
 
         bool DeleteUser(int userid);
 
+        #endregion
+
+        #region Shopping Lists Section
+
         List<ShoppingList> GetShoppingLists(int userid);
+
+        Task<ResponseDTO> CreateShoppingList(ShoppingListDTO shoppinglist, int userid);
+
+        Task<ResponseDTO> UpdateShoppingList(ShoppingListDTO shoppinglist);
+
+        ResponseDTO DeleteShoppingList(int shoppinglistid);
+
+        #endregion
+
+        #region Shopping List Items Section
 
         List<ShoppingListItemDTO> GetShoppingListItems(int shoppinglistid);
 
-        Task<int> CreateShoppingList(ShoppingListDTO shoppinglist, int userid);
+        Task<ResponseDTO> CreateShoppingListItem(ItemDTO shoppingListItem, int userid);
 
-        Task<int> UpdateShoppingList(ShoppingListDTO shoppinglist);
+        Task<ResponseDTO> UpdateShoppingListItem(ShoppingListItemDTO shoppingListItem);
 
-        bool DeleteShoppingList(int shoppinglistid);
+        Task<ResponseDTO> ToggleShoppingListItemChecked(ItemCheckDTO itemCheck);
 
-        Task<int> CreateShoppingListItem(ItemDTO shoppingListItem, int userid);
+        ResponseDTO DeleteShoppingListItem(int shoppinglistitemid);
 
-        Task<int> ToggleShoppingListItemChecked(ItemCheckDTO itemCheck);
+        #endregion
 
-        bool DeleteShoppingListItem(int shoppinglistitemid);
+        #region Security
 
-        Task<ShoppingListItemDTO> UpdateShoppingListItem(ShoppingListItemDTO shoppingListItem);
+        void AddRefreshToken(RefreshToken refreshToken);
+
+        RefreshToken ListRefreshTokenDetails(string token);
+
+        void RevokeRefreshToken(RefreshToken token);
+
+        #endregion    
     }
 }
