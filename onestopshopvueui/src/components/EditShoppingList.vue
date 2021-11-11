@@ -53,7 +53,7 @@ export default {
         saveShoppingList() {
             if (this.shoppinglistname != "" && this.shoppinglistdescription != "") {
                 this.$store.dispatch("POST_UPDATE_LIST", {
-                    id: this.$route.params.id,
+                    shoppinglistid: this.$route.params.shoppinglistid,
                     shoppinglistname: this.shoppinglistname,
                     shoppinglistdescription: this.shoppinglistdescription
                 })
@@ -82,7 +82,7 @@ export default {
     },
     computed: {
         DETAILS() {
-            return this.$store.getters.LIST_DETAILS(this.$route.params.id);
+            return this.$store.getters.LIST_DETAILS(this.$route.params.shoppinglistid);
         }     
     },
     watch: {
@@ -91,7 +91,7 @@ export default {
                     this.$router.push({
                     name: "OneStopShop",
                     params: {
-                        id: this.$route.params.id
+                        shoppinglistid: this.$route.params.shoppinglistid
                     }
                 });
             }

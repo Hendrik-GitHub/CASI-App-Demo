@@ -35,12 +35,12 @@
         <v-list style="height: calc(100% - 128px);">
           
             <v-list-item 
-                :to="{ name: 'Items', params: { id: list.id} }"
+                :to="{ name: 'Items', params: { shoppinglistid: list.shoppinglistid} }"
                 v-for="(list, key) in LISTS" 
                 v-bind:key="key">
            
                 <v-list-item-action>                  
-                    <v-btn icon @click.prevent="openEditListModal(list.id)">
+                    <v-btn icon @click.prevent="openEditListModal(list.shoppinglistid)">
                         <v-icon color="pink">edit</v-icon>  
                     </v-btn>                  
                 </v-list-item-action> 
@@ -51,7 +51,7 @@
                 </v-list-item-content>
 
                 <v-list-item-action>
-                    <v-btn icon @click.prevent="deleteList(list.id)">
+                    <v-btn icon @click.prevent="deleteList(list.shoppinglistid)">
                         <v-icon color="red">delete</v-icon>
                     </v-btn>
                 </v-list-item-action>
@@ -122,12 +122,12 @@ export default {
         openEditListModal (listId) {
             this.$router.push({
                 name: "EditShoppingList",
-                params: { id: listId }
+                params: { shoppinglistid: listId }
             });
         },
         deleteList(listId) {
             this.$store.dispatch("DELETE_LIST", {
-                    listId: listId
+                    shoppinglistid: listId
                 })
                 .then((status) => {
                 if (status === 204 || status === 200) {
@@ -141,7 +141,7 @@ export default {
                     this.$router.push({
                         name: "OneStopShop",
                         params: {
-                            id: this.$route.params.id
+                            shoppinglistid: this.$route.params.shoppinglistid
                         }
                     });
                 }

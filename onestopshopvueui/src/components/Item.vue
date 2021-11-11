@@ -17,7 +17,7 @@
         </v-list-item-action-text>
 
         <v-list-item-action>
-            <v-btn icon @click.prevent="deleteItem(Item.id)">
+            <v-btn icon @click.prevent="deleteItem(Item.itemid)">
                 <v-icon color="red">delete</v-icon>
             </v-btn>
         </v-list-item-action>
@@ -38,7 +38,7 @@ export default {
     methods: {       
         toggleItemChecked(index) {
             this.$store.dispatch("TOGGLE_ITEMCHECKED", {
-                id: this.Item.id,
+                itemid: this.Item.itemid,
                 ItemChecked: this.Item.ItemChecked
             });
         },
@@ -48,12 +48,12 @@ export default {
         openEditItemModal () {
             this.$router.push({
                 name: "EditItem",
-                params: { ItemId: this.Item.id }
+                params: { itemid: this.Item.itemid }
             })
         },
-        deleteItem(ItemId) {
+        deleteItem(itemid) {
             this.$store.dispatch("DELETE_ITEM", {
-                    ItemId: ItemId
+                    itemid: itemid
                 })
                 .then((status) => {
                 if (status === 204 || status === 200) {

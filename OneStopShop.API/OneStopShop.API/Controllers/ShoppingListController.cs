@@ -122,14 +122,14 @@ namespace OneStopShop.API.Controllers
 
         #region Shopping List Items Section
 
-        [HttpGet("GetShoppingListItems/{id}")]
-        public IActionResult GetShoppingListItems(int id)
+        [HttpGet("GetShoppingListItems/{shoppinglistid}")]
+        public IActionResult GetShoppingListItems(int shoppinglistid)
         {
             List<ShoppingListItemDTO> shoppingListItems = new List<ShoppingListItemDTO>();
 
             try
             {
-                shoppingListItems = _oneStopShopRepository.GetShoppingListItems(id);
+                shoppingListItems = _oneStopShopRepository.GetShoppingListItems(shoppinglistid);
             }
             catch (Exception ex)
             {

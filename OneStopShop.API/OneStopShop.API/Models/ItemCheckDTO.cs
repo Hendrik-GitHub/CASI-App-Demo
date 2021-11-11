@@ -7,7 +7,7 @@ namespace OneStopShop.API.Models
 {
     public class ItemCheckDTO
     {
-        public int id { get; set; }
+        public int itemid { get; set; }
 
         public bool ItemChecked { get; set; }
 

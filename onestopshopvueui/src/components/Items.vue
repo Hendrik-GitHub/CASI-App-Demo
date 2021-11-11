@@ -65,7 +65,7 @@ export default {
     }),
     computed: {
         ITEMS () {
-            return this.$store.getters.ITEMS(this.$route.params.id);
+            return this.$store.getters.ITEMS(this.$route.params.shoppinglistid);
         },
         openNewItemFormValue: {
             get () {
@@ -92,7 +92,7 @@ export default {
         }
     },
     mounted () {
-        this.$store.dispatch("GET_ITEMS", this.$route.params.id);
+        this.$store.dispatch("GET_ITEMS", this.$route.params.shoppinglistid);
     }
 }
 </script>

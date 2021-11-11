@@ -11,7 +11,7 @@ namespace OneStopShop.API.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int shoppinglistid { get; set; }
 
         public string name { get; set; }
 

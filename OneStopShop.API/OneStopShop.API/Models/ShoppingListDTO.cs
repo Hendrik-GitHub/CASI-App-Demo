@@ -7,7 +7,7 @@ namespace OneStopShop.API.Models
 {
     public class ShoppingListDTO
     {
-        public int id { get; set; }
+        public int shoppinglistid { get; set; }
 
         public string shoppinglistname { get; set; }
 

@@ -55,11 +55,11 @@ export default {
         updateShoppingListItem() {
             if (this.shoppinglistitemdescription != "" && this.quantitydescription != "") {
                     this.$store.dispatch("POST_UPDATE_ITEM", {
-                    id: this.$route.params.ItemId,
+                    itemid: this.$route.params.itemid,
                     shoppinglistitemdescription: this.shoppinglistitemdescription,
                     quantitydescription: this.quantitydescription,
                     itemchecked: this.itemchecked,
-                    shoppinglistid: this.$route.params.id
+                    shoppinglistid: this.$route.params.shoppinglistid
                 })
                 .then(response => {
                 this.$store.commit("SET_NOTIFICATION", {
@@ -85,7 +85,7 @@ export default {
     },
     computed: {
         ITEM_DETAILS() {
-            return this.$store.getters.ITEM_DETAILS(this.$route.params.ItemId);
+            return this.$store.getters.ITEM_DETAILS(this.$route.params.itemid);
         }     
     },
     watch: {
@@ -94,7 +94,7 @@ export default {
                     this.$router.push({
                     name: "Items",
                     params: {
-                        id: this.$route.params.id
+                        itemid: this.$route.params.itemid
                     }
                 });
             }

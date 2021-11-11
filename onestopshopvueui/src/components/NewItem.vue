@@ -58,7 +58,7 @@ export default {
                     shoppinglistitemdescription: this.shoppinglistitemdescription,
                     quantitydescription: this.quantitydescription,
                     itemchecked: this.itemchecked,
-                    shoppinglistid: this.$route.params.id
+                    shoppinglistid: this.$route.params.shoppinglistid
                 })
                 .then(response => {
                 this.$store.commit("SET_NOTIFICATION", {
@@ -72,7 +72,7 @@ export default {
                 this.itemchecked = false;
                 this.open = false;
 
-                this.$store.dispatch("GET_ITEMS", this.$route.params.id);
+                this.$store.dispatch("GET_ITEMS", this.$route.params.shoppinglistid);
                 });
             }
             else {
@@ -90,7 +90,7 @@ export default {
         this.$router.push({
           name: "Items",
           params: {
-            id: this.$route.params.id
+            itemid: this.$route.params.itemid
           }
         });
       }

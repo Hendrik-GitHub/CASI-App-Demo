@@ -30,12 +30,12 @@ const routes = [
     name: "OneStopShop",
     children: [
       {
-        path: "shoppinglist/:id",
+        path: "shoppinglist/:shoppinglistid",
         components: { Items: Items },
         name: "Items",
         children: [
           {
-            path: "item/:ItemId",
+            path: "item/:itemid",
             components: { 
               EditItem: EditItem 
             },
@@ -58,7 +58,7 @@ const routes = [
         name: "NewShoppingList"
       },
       {
-        path: "/editshoppinglist/:id",
+        path: "/editshoppinglist/:shoppinglistid",
         components: { 
           EditShoppingList: EditShoppingList 
         },

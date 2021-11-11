@@ -16,10 +16,10 @@ export default {
       }
     },
     LIST_DETAILS: state => (listId) => {
-      return state.lists.find(list => list.id === listId);
+      return state.lists.find(list => list.shoppinglistid === listId);
     },
-    ITEM_DETAILS: state => (ItemId) => {
-      return state.items.find(Item => Item.id === ItemId);
+    ITEM_DETAILS: state => (itemid) => {
+      return state.items.find(Item => Item.itemid === itemid);
     }
   },
   mutations: {
@@ -30,8 +30,8 @@ export default {
       state.lists.unshift(payload);
     },
     UPDATE_LIST: (state, { data }) => {
-      state.lists.find(list => list.id === data.id).shoppinglistname = data.shoppinglistname;
-      state.lists.find(list => list.id === data.id).shoppinglistdescription = data.shoppinglistdescription;
+      state.lists.find(list => list.shoppinglistid === data.shoppinglistid).shoppinglistname = data.shoppinglistname;
+      state.lists.find(list => list.shoppinglistid === data.shoppinglistid).shoppinglistdescription = data.shoppinglistdescription;
     },
     SET_ITEMS: (state, payload) => {
       state.items = payload;
@@ -40,22 +40,22 @@ export default {
       state.items.unshift(payload);
     },
     UPDATE_ITEM: (state, { data }) => {
-      state.items.find(Item => Item.ItemId === data).ShoppingListItemDescription = data.shoppinglistitemdescription;
-      state.items.find(Item => Item.ItemId === data).QuantityDescription = data.quantitydescription;
+      state.items.find(Item => Item.itemid === data).ShoppingListItemDescription = data.shoppinglistitemdescription;
+      state.items.find(Item => Item.itemid === data).QuantityDescription = data.quantitydescription;
     },
     SET_ITEM_STATUS: (state, { data }) => {
-      state.items.find(Item => Item.id === data.id).ItemChecked = data.ItemChecked;
+      state.items.find(Item => Item.itemid === data.itemid).ItemChecked = data.ItemChecked;
     },
     REMOVE_ITEM: (state, { payload }) => {
       let rs = state.items.filter(currentItem => {
-        return currentItem.id !== payload.ItemId;
+        return currentItem.itemid !== payload.itemid;
       });
 
       state.items = [...rs];
     },
     REMOVE_LIST: (state, { payload }) => {
       let rs = state.lists.filter(currentList => {
-        return currentList.id !== payload.listId;
+        return currentList.shoppinglistid !== payload.shoppinglistid;
       });
 
       state.lists = [...rs];
@@ -191,7 +191,7 @@ export default {
       };
 
       return new Promise((resolve, reject) => {
-        axios.delete(`ShoppingListController/DeleteShoppingListItem/`+ payload.ItemId, { headers })
+        axios.delete(`ShoppingListController/DeleteShoppingListItem/`+ payload.itemid, { headers })
           .then(({ data, status }) => {
             commit("REMOVE_ITEM", {
               payload
@@ -209,7 +209,7 @@ export default {
       };
 
       return new Promise((resolve, reject) => {
-        axios.delete(`ShoppingListController/DeleteShoppingList/`+ payload.listId, { headers })
+        axios.delete(`ShoppingListController/DeleteShoppingList/`+ payload.shoppinglistid, { headers })
           .then(({ data, status }) => {
             commit("REMOVE_LIST", {
               payload

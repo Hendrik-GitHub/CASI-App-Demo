@@ -13,7 +13,7 @@ namespace OneStopShop.API.Entities
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id { get; set; }
+        public int itemid { get; set; }
 
         public string shoppinglistitemdescription { get; set; }
 

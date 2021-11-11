@@ -85,7 +85,7 @@ export default {
                     this.$router.push({
                     name: "OneStopShop",
                     params: {
-                        id: this.$route.params.id
+                        shoppinglistid: this.$route.params.shoppinglistid
                     }
                 });
             }
