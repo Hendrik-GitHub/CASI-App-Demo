@@ -119,12 +119,6 @@ namespace OneStopShop.API
             {
                 endpoints.MapControllers();
             });
-
-            app.UseStaticFiles(new StaticFileOptions
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Photos")),
-                RequestPath = "/Photos"
-            });
         }
     }
 }
