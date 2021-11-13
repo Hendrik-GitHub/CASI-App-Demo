@@ -88,23 +88,26 @@ export default {
     methods: {
         register() {
           if (this.valid()) {
-            this.$store.dispatch("REGISTER", {
-              username: this.username,
-              emailaddress: this.emailaddress,
-              password: this.password
-            })
-            .then(({ status }) => {
-              this.$store.commit("SET_NOTIFICATION", {
-                display: true,
-                text: "Your account has been created!",
-                alertClass: "danger"
-              });
 
-              this.$router.push("/login");
-            })
-            .catch(error => {
-              this.userExists = true;
-            })            
+            if (this.username != "" && this.emailaddress != "" && this.password != "" && this.confirm_password != "") {
+              this.$store.dispatch("REGISTER", {
+                username: this.username,
+                emailaddress: this.emailaddress,
+                password: this.password
+              })
+              .then(({ status }) => {
+                this.$store.commit("SET_NOTIFICATION", {
+                  display: true,
+                  text: "Your account has been created!",
+                  alertClass: "danger"
+                });
+
+                this.$router.push("/login");
+              })
+              .catch(error => {
+                this.userExists = true;
+              })
+            }                   
           }               
         },
         valid() {

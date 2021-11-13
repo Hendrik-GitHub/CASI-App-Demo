@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  onestopshopvueui:
+    image: onestopshopvueui
+    build:
+      context: .
+      dockerfile: ./Dockerfile
