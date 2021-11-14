@@ -20,6 +20,9 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using OneStopShop.API.Models.Logging;
 using OneStopShop.API.Repositries.Logging;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel;
+using Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption;
 
 namespace OneStopShop.API
 {
@@ -82,6 +85,13 @@ namespace OneStopShop.API
             var postgresqlConnectionString = Configuration["ConnectionStrings:TestDBConnectionString"];
             services.AddDbContext<OneStopShopContext>(opt => opt.UseNpgsql(postgresqlConnectionString));
             services.AddScoped<IOneStopShopRepository, OneStopShopRepository>();
+
+            services.AddDataProtection().PersistKeysToFileSystem(new DirectoryInfo(@"C:\temp-keys\"))
+                .UseCryptographicAlgorithms(new AuthenticatedEncryptorConfiguration()
+                {
+                    EncryptionAlgorithm = EncryptionAlgorithm.AES_256_CBC,
+                    ValidationAlgorithm = ValidationAlgorithm.HMACSHA256
+                });
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }

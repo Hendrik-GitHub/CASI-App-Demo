@@ -147,3 +147,6 @@ C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\
 C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.dll
 C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.pdb
 C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.genruntimeconfig.cache
+C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\bin\Debug\netcoreapp3.1\onestopshopvueui\package-lock.json
+C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\bin\Debug\netcoreapp3.1\onestopshopvueui\package.json
+C:\GitHub\CASI App Demo\OneStopShop.API\OneStopShop.API\obj\Debug\netcoreapp3.1\OneStopShop.API.csproj.AssemblyReference.cache

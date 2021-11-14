@@ -60,17 +60,20 @@ namespace OneStopShop.API.Services
 
                     response.Message = "Success";
                     response.Success = true;
+                    response.ErrorMessage = "No errors";
                 }
                 else
                 {
                     response.Message = "User exists!";
                     response.Success = false;
+                    response.ErrorMessage = "No errors";
                 }
             }
             catch (Exception ex)
             {
                 response.Message = "Failure";
                 response.Success = false;
+                response.ErrorMessage = ex.ToString();
             }
                 
             return response;

@@ -1,0 +1,17 @@
+version: '3.7'
+
+services:
+  onestopshopui:
+    image: henniedev1/dockeronestopshopui
+    container_name: OneStopShopUI
+    build: .
+    ports:
+        - "0.0.0.0:8080:80"
+    networks:
+      - my-network
+    environment:
+      - API_URL=Api:5000
+  
+networks:
+  my-network:
+    external: true

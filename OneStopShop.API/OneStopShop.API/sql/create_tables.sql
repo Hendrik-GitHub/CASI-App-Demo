@@ -45,10 +45,6 @@ CREATE TABLE IF NOT EXISTS public.shoppinglists
 ALTER TABLE public.shoppinglists
     OWNER to postgres;
 
--- Table: public.shoppinglistitems
-
--- DROP TABLE public.shoppinglistitems;
-
 CREATE TABLE IF NOT EXISTS public.shoppinglistitems
 (
     itemid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
@@ -66,3 +62,102 @@ CREATE TABLE IF NOT EXISTS public.shoppinglistitems
 
 ALTER TABLE public.shoppinglistitems
     OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.category
+(
+    categoryid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    categoryname character varying COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Category_pkey" PRIMARY KEY (categoryid)
+);
+
+ALTER TABLE public.category
+    OWNER to postgres;
+	
+CREATE TABLE IF NOT EXISTS public.categorylog
+(
+    categorylogid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    categoryid integer NOT NULL,
+    logid integer NOT NULL,
+    CONSTRAINT "CategoryLog_pkey" PRIMARY KEY (categorylogid),
+    CONSTRAINT fk_categorylog_category FOREIGN KEY (categoryid)
+        REFERENCES public.category (categoryid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION,
+    CONSTRAINT fk_categorylog_log FOREIGN KEY (logid)
+        REFERENCES public.log (logid) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+);
+
+ALTER TABLE public.categorylog
+    OWNER to postgres;
+
+CREATE TABLE IF NOT EXISTS public.log
+(
+    logid integer NOT NULL GENERATED ALWAYS AS IDENTITY ( INCREMENT 1 START 1 MINVALUE 1 MAXVALUE 2147483647 CACHE 1 ),
+    appdomainname character varying COLLATE pg_catalog."default" NOT NULL,
+    eventid integer,
+    machinename character varying COLLATE pg_catalog."default" NOT NULL,
+    message character varying COLLATE pg_catalog."default",
+    priority integer NOT NULL,
+    processid character varying COLLATE pg_catalog."default" NOT NULL,
+    processname character varying COLLATE pg_catalog."default" NOT NULL,
+    severity character varying COLLATE pg_catalog."default" NOT NULL,
+    threadname character varying COLLATE pg_catalog."default" NOT NULL,
+    "timestamp" date NOT NULL,
+    title character varying COLLATE pg_catalog."default" NOT NULL,
+    win32threadid character varying COLLATE pg_catalog."default",
+    formattedmessage character varying COLLATE pg_catalog."default",
+    CONSTRAINT "Log_pkey" PRIMARY KEY (logid)
+);
+
+ALTER TABLE public.log
+    OWNER to postgres;
+
+
+CREATE OR REPLACE PROCEDURE public.writelog(
+	eventid integer,
+	priority integer,
+	severity character varying,
+	title character varying,
+	machinename character varying,
+	appdomainname character varying,
+	processid character varying,
+	processname character varying,
+	threadname character varying,
+	win32threadid character varying,
+	message character varying,
+	formattedmessage character varying)
+LANGUAGE 'plpgsql'
+AS $BODY$
+BEGIN         
+   INSERT INTO Log (eventid,
+		priority,
+		severity,
+		title,
+		timestamp,
+		machinename,
+		appdomainname,
+		processid,
+		processname,
+		threadname,
+		win32threadid,
+		message,
+		formattedmessage) 
+   VALUES   
+    (eventid,
+	priority,
+	severity,
+	title,
+	NOW(),
+	machinename,
+	appdomainname,
+	processid,
+	processname,
+	threadname,
+	win32threadid,
+	message,
+	formattedmessage  
+    ); 
+END
+$BODY$;
