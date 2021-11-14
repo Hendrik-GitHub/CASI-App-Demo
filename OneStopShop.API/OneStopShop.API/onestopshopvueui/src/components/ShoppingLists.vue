@@ -6,13 +6,15 @@
             <v-spacer />
         </v-toolbar> 
         <v-toolbar color="blue" dark>
-            <v-toolbar-title>My Shopping Lists</v-toolbar-title>
             <v-spacer />
             <v-btn icon>
                 <v-btn rounded color="primary" dark @click.prevent="logout()">Logout<v-icon>logout</v-icon></v-btn>
             </v-btn>
             <v-spacer />
         </v-toolbar>
+        <v-toolbar color="blue" dark>
+            <v-toolbar-title>My Shopping Lists</v-toolbar-title>
+        </v-toolbar>       
         <v-list>
             <v-list-item color="blue" @click.prevent="openCreateNewListModal()">
                 <v-list-item-content>

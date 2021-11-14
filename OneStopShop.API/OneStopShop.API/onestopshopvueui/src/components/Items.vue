@@ -6,10 +6,6 @@
                     Items
                 </v-toolbar-title>
                 <v-spacer></v-spacer>
-
-                <v-btn icon>
-                    <v-icon>search</v-icon>
-                </v-btn>
             </v-toolbar>          
 
             <v-list two-line style="height: calc(100% - 128px); overflow-y: scroll;">
